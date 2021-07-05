@@ -8,10 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <div id ="login-form">
-        <input id= "uname" type ="text" placeholder= "What is your name?"/>
-        <button>Log In</button>
-    </div>
+    <form id ="login-form">
+        <input required
+         maxlength="15" 
+         id= "username" 
+         type ="text" 
+         placeholder= "What is your name?"/>
+         <input type="submit" value="Log In"/>
+         <!--type submit 에서는 placeholder을 못쓰고 value로 표현해야한다-->
+    </form>
+    <!--required라는 유효성 검사를 위해서는 input 위에 form이 있어야한다.-->
      <script src= "app.js"></script>
 </body>
 </html>
