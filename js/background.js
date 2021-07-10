@@ -7,6 +7,9 @@ const bgImage =document.createElement("img");
 bgImage.src = `img/${chosenImage}`;
 
 document.body.appendChild(bgImage);
+
+bgImage.width = 500;
+
 /*appendChild(x)는 x를 appendChild앞에 적힌 주소로 위치를 이동한다.
  src=""으로 들어가니 안에 object를 넣을 때는 `${}`를 사용한다.
 ==는 다른 type이어도 변환하여 비교하고 ===는 type변환을 해주지 않아서 다른 type이면 바로false를 반환

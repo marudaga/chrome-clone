@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+    <h2 id="clock">00:00:00</h2>
     <form class="hidden" id ="login-form">
         <input required
          maxlength="15" 
@@ -18,8 +19,11 @@
          <!--type submit 에서는 placeholder을 못쓰고 value로 표현해야한다-->
     </form>
     <!--required라는 유효성 검사를 위해서는 input 위에 form이 있어야한다.-->
-    <h2 id = "clock">00:00</h2>
     <h1 id ="greeting"class="hidden"></h1>
+    <form id="todo-form">
+        <input type="text" placeholder="Write a To do and press Enter"required/>
+    </form>
+    <ul id="todo-list"></ul>
     <div id="quote">
         <span></span>
         <span></span>
@@ -28,6 +32,7 @@
     <script src= "js/clock.js"></script>
     <script src= "js/quotes.js"></script>
     <script src= "js/background.js"></script>
+    <script src= "js/todo.js"></script>
 
 </body>
 </html>

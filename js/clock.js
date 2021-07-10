@@ -1,5 +1,5 @@
 const clock = document.querySelector("h2#clock");
-
+//h2 #clock 띄워쓰면 안됨
 function getClock(){
     const date = new Date();
     const hours = String(date.getHours()).padStart(2,"0");
