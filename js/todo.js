@@ -2,6 +2,18 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
+const toDos =[];
+
+const TODOS_KEY ="todos";
+
+function saveToDos(){
+    localStorage.setItem("TODOS_KEY", JSON.stringify(toDos));
+}
+    /*JSON.stringify() changes to string 
+    JSON.parse() string을 array로 변환
+    value를 저장할때 a, b, c 보다 ["a","b","c"]귄장 
+    a,b,c는 a중복 입력이 안됨}*/
+
 function deleteToDo(event){
     console.log(event);
     const list = event.target.parentElement;
@@ -35,7 +47,32 @@ function handleToDoSubmit(event){
     /*위2줄에 대한 설명 newToDo에 들어간 값을 저장하고 toDoInput를 초기화하면 
     value를 초기화하면서 이전값을 저장할수있다.
     */ 
+   toDos.push(newToDo);
+   /*newToDo를 push해서 toDos라는 array에 입력한다.
+   localStorage에는 array안되고 text만 넣을수있다.
+   */
    paintToDo(newToDo);
+   saveToDos();
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
+
+
+
+const savedToDos= localStorage.getItem(TODOS_KEY);
+console.log(saveToDos);
+if(savedToDos !== null){
+    const parsedToDos = JSON.parse(savedToDos);
+    /*JSON.stringify() changes to string 
+    JSON.parse() string을 array로 변환*/
+    console.log(parseToDos);
+    parsedToDos.forEach((item) => 
+    console.log("this is the turn of", item));
+    /* 위를 arrow function이라한다
+    function sayHello(item){
+    console.log("this is the turn of ", item);
+    로 표현가능 
+    둘다 sayHello("a")  sayHello("b") 이런식으로 
+    각각의 array값을 각각넣어 출력하게된다. 
+    */
+}
