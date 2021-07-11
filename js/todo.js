@@ -3,54 +3,53 @@ const toDoInput = toDoForm.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
 let toDos =[];
-//7.5장까지의 주석 정리
+/*7.6장 commit
+change input value to input obj cause 
+한문장 지우기 ctrl+x, 사이드바 숨기기 ctrl+end
+주석처리 ctrl+/  묶음 주석 shift+alt+a 
+들여쓰기 ctrl+],내어쓰기 ctrl+ [
+*/
 const TODOS_KEY ="todos";
 
 function saveToDos(){
     localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
-    /*JSON.stringify() changes to string 
-    JSON.parse() string을 array로 변환
-    value를 저장할때 a, b, c 보다 ["a","b","c"]귄장 
-    a,b,c는 a중복 입력이 안됨}*/
 
 function deleteToDo(event){
     const list = event.target.parentElement;
     list.remove();
-    /* x를 포함한 줄(list)을 없애고 싶을때 list를 찾아야함
-    event를 console log해서 path를 보면 button의 부모가
-    list임을 확인했고 target을 을 찾고 그중에서 
-    parentElement가 list임을 확인
-    button이 이 함수에서의 event이므로 
-    event.target.parentElement
-    */
+    toDos = toDos.filter((toDo) => toDo.id !== parseInt(list.id));
+  /* typeof를 해서 보면 toDo.id number--- list.id string이다
+  toDos.filter((toDo) => toDo.id !== parseInt(list.id)); 
+  toDos함수를 필터링하는데 toDo라는 파라미터의 id값과 list의 id값(없앤id)가 다른경우
+   통과시켜주고 그 값을 toDos에 업데이트한다 */
+  saveToDos();
+  /*saveToDos() 쓰는 이유는 기존의 값을 toDos에 업데이트했지만
+   그값을 localstorage에 저장하여야 하기때문에*/
 }
-function paintToDo(newToDo){
-//i will paint newToDo
+function paintToDo(newToDoObj){
     const list = document.createElement("li");
+    list.id = newToDoObj.id;
     const span = document.createElement("span");
     const button = document.createElement("button");
     button.innerText = "❌";
     button.addEventListener("click",deleteToDo);
-    //mouse event관련 moveover=hoverover은 마우스를 클릭하지않고 위치시키는 것
     list.appendChild(span);
     list.appendChild(button);
-    span.innerText = newToDo;
+    span.innerText = newToDoObj.text;
     toDoList.appendChild(list);
 }
 
 function handleToDoSubmit(event){
-    event.preventDefault(); //event의 실행을 막는다
+    event.preventDefault(); 
     const newToDo = toDoInput.value;
     toDoInput.value="";
-    /*위2줄에 대한 설명 newToDo에 들어간 값을 저장하고 toDoInput를 초기화하면 
-    value를 초기화하면서 이전값을 저장할수있다.
-    */ 
-   toDos.push(newToDo);
-   /*newToDo를 push해서 toDos라는 array에 입력한다.
-   localStorage에는 array안되고 text만 넣을수있다.
-   */
-   paintToDo(newToDo);
+    const newToDoObj = {
+        text:newToDo,
+        id:Date.now()
+    }//{text:newToDo;에서 ;필요없음
+   toDos.push(newToDoObj);
+   paintToDo(newToDoObj);
    saveToDos();
 }
 
@@ -60,17 +59,9 @@ const savedToDos= localStorage.getItem(TODOS_KEY);
 
 if(savedToDos !== null){
     const parsedToDos = JSON.parse(savedToDos);
-    /*JSON.stringify() changes to string 
-    JSON.parse() string을 array로 변환*/
-
     toDos =parsedToDos;
     parsedToDos.forEach(paintToDo);
-    //paintToDo가 newToDo를 받기때눙누문
-    /* 위를 arrow function이라한다
-    function sayHello(item){
-    console.log("this is the turn of ", item);
-    로 표현가능 
-    둘다 sayHello("a")  sayHello("b") 이런식으로 
-    각각의 array값을 각각넣어 출력하게된다. 
-    */
+    //paintToDo array
 }
+//paintToDo("a")-> paintToDo({text:"a", id:12121})로 바꿔줌
+//?? forEach function is exicuting this paintToDo function forEach item on the array paredToDos
