@@ -15,7 +15,7 @@ body{
     align-items: center;
     
 }
-#todo-form input{
+#todo-form input, #login-form input{
 width:200px;
 height:30px;
 border: 2px dashed white ;
