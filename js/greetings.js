@@ -42,6 +42,5 @@ else{
     //show the greeting
     paintGreetings(savedUsername);
 }
-console.log("savedUsername")
 
 loginForm.addEventListener("submit", onLoginSubmit)

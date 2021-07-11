@@ -2,12 +2,12 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
-const toDos =[];
-
+let toDos =[];
+//7.5장까지의 주석 정리
 const TODOS_KEY ="todos";
 
 function saveToDos(){
-    localStorage.setItem("TODOS_KEY", JSON.stringify(toDos));
+    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
     /*JSON.stringify() changes to string 
     JSON.parse() string을 array로 변환
@@ -15,7 +15,6 @@ function saveToDos(){
     a,b,c는 a중복 입력이 안됨}*/
 
 function deleteToDo(event){
-    console.log(event);
     const list = event.target.parentElement;
     list.remove();
     /* x를 포함한 줄(list)을 없애고 싶을때 list를 찾아야함
@@ -41,7 +40,7 @@ function paintToDo(newToDo){
 }
 
 function handleToDoSubmit(event){
-    event.preventDefault(); 
+    event.preventDefault(); //event의 실행을 막는다
     const newToDo = toDoInput.value;
     toDoInput.value="";
     /*위2줄에 대한 설명 newToDo에 들어간 값을 저장하고 toDoInput를 초기화하면 
@@ -57,17 +56,16 @@ function handleToDoSubmit(event){
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
 
-
-
 const savedToDos= localStorage.getItem(TODOS_KEY);
-console.log(saveToDos);
+
 if(savedToDos !== null){
     const parsedToDos = JSON.parse(savedToDos);
     /*JSON.stringify() changes to string 
     JSON.parse() string을 array로 변환*/
-    console.log(parseToDos);
-    parsedToDos.forEach((item) => 
-    console.log("this is the turn of", item));
+
+    toDos =parsedToDos;
+    parsedToDos.forEach(paintToDo);
+    //paintToDo가 newToDo를 받기때눙누문
     /* 위를 arrow function이라한다
     function sayHello(item){
     console.log("this is the turn of ", item);
