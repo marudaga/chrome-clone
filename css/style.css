@@ -1,3 +1,22 @@
 .hidden{
     display:none;
 }
+body{
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size:15px;
+    background:linear-gradient(0.25turn,rgba(241, 218, 188, 0.808),rgba(98, 170, 253, 0.678));
+}
+#clock{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#todo-form input{
+width:200px;
+height:30px;
+border: 2px dashed white ;
+}
